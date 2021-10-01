@@ -8,39 +8,48 @@
 
 // Test Suite
 describe(`${Person.name} Class`, () => {
-  describe('default valeus', () => {
+  let model;
+  beforeEach(() => {
+    model = new Person();
+    console.log('Before Each')
+  });
+
+  describe('default values', () => {
     it('first name defaults to empty string', () => {
-      // arrange
-      const data = { firstName: null };
-      
-      // act
-      const model = new Person(data);
-  
+      console.log(1)
       // assert
       expect(model.firstName).toBe('');
     });
   
     it('last name defaults to empty string', () => {
-      // arrange
-      const data = { lastName: null };
-  
-      // act
-      const model = new Person(data);
-  
+      console.log(2)
       // assert
       expect(model.lastName).toBe('');
     });
   
     it('middle name defaults to empty string', () => {
-      // arrange
-      const data = { middleName: null };
-  
-      // act
-      const model = new Person(data);
-  
+      console.log(3)
       // assert
       expect(model.middleName).toBe('');
     });
   });
 
+  describe(`${Person.name} Full Name Method`, () => {
+      beforeEach(() => {
+        model = new Person({
+          firstName = 'Danny';
+          lastName = 'Yang';
+        });
+      })
+
+      it('middle initial when middle name is defined with first and last names', () => {
+        model.middleName = 'Toua';
+        expect(model.fullName).toBe(`${model.firstName} ${model.middleName[0]} ${model.lastName}`)
+      })
+
+      it('when NO middle name returns just first and last names', () => {
+        expect(model.fullName).toBe(`${model.firstName} ${model.lastName}`)
+      })
+  });
 });
+
